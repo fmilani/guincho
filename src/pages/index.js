@@ -4,11 +4,13 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import Cities from "../components/cities"
+import PriceDetails from "../components/price-details"
 import SEO from "../components/seo"
+import formatMoney from "../functions/format-money"
 
 function Value({ children }) {
   return (
-    <span style={{ fontSize: "2rem", display: "inline-block", margin: 10 }}>
+    <span style={{ fontSize: "1.75rem", display: "inline-block", margin: 10 }}>
       <b>{children}</b>
     </span>
   )
@@ -17,14 +19,11 @@ function Value({ children }) {
 function DisplayFare({ fare }) {
   return (
     <span style={{ fontSize: "2.5rem", display: "inline-block", margin: 10 }}>
-      <b>{formatFare(fare)}</b>
+      <b>{formatMoney(fare)}</b>
     </span>
   )
 }
 
-function formatFare(fare) {
-  return `R$ ${fare.toFixed(2).replace(".", ",")}`
-}
 const IndexPage = () => {
   const [destination, setDestination] = useState("")
   const [route, setRoute] = useState(null)
@@ -51,32 +50,37 @@ const IndexPage = () => {
             <div
               style={{
                 marginTop: 30,
-                fontSize: "1.25rem",
+                fontSize: "1.1rem",
                 display: "flex",
                 justifyContent: "space-between",
               }}
             >
-              <p>
+              <div>
                 Distância:
                 <br />
                 <Value>{route.distance}</Value>
-              </p>
-              <p>
+              </div>
+              <div>
                 Tempo total:
                 <br />
                 <Value>{route.duration}</Value>
-              </p>
+              </div>
             </div>
             <div
               style={{
-                marginTop: 30,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
-              <div style={{ fontSize: "2rem" }}>Preço:</div>
-              <div style={{ marginTop: 20 }}>
+              <PriceDetails
+                priceDetails={[
+                  { label: "Km rodado", price: route.fare },
+                  { label: "Pedágios", price: route.fare },
+                ]}
+              />
+              <div style={{ fontSize: "2rem" }}>Total:</div>
+              <div style={{ marginTop: 10 }}>
                 <DisplayFare fare={route.fare} />
               </div>
             </div>
