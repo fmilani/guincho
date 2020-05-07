@@ -4,7 +4,7 @@ import Downshift from "downshift"
 const API_KEY = "i-Pi7nD9cZkjCXAhIBWdtW92CkhEBGnUAs_HxL_5rng"
 const ROOT_URL = "https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json"
 
-function Cities({ onChange }) {
+function SearchCity({ onChange, onClear }) {
   const [inputValue, setInputValue] = useState("")
   const [query, setQuery] = useState("")
   const [results, setResults] = useState([])
@@ -44,6 +44,7 @@ function Cities({ onChange }) {
         onChange(`${selection.city} - ${selection.state}`)
       }}
       itemToString={item => (item ? `${item.city} - ${item.state}` : "")}
+      defaultHighlightedIndex={0}
     >
       {({
         getInputProps,
@@ -56,6 +57,11 @@ function Cities({ onChange }) {
         selectedItem,
         getRootProps,
       }) => {
+        function onChangeCity() {
+          setInputValue("")
+          cityInput.current.focus()
+          onClear()
+        }
         return (
           <div
             style={{
@@ -106,11 +112,10 @@ function Cities({ onChange }) {
                           padding: "10px 5px",
                           backgroundColor:
                             highlightedIndex === index
-                              ? "lightgray"
-                              : index % 2 === 0
+                              ? "gray"
+                              : index % 2 !== 0
                               ? "white"
                               : "#eee",
-                          fontWeight: selectedItem === item ? "bold" : "normal",
                         },
                       })}
                     >
@@ -130,17 +135,15 @@ function Cities({ onChange }) {
                   padding: "10px 0",
                 }}
                 onClick={() => {
-                  setInputValue("")
-                  cityInput.current.focus()
+                  onChangeCity()
                 }}
                 onKeyDown={event => {
                   if (event.key === " " || event.key === "Enter") {
-                    setInputValue("")
-                    cityInput.current.focus()
+                    onChangeCity()
                   }
                 }}
               >
-                Limpar
+                Mudar cidade
               </span>
             )}
           </div>
@@ -150,4 +153,4 @@ function Cities({ onChange }) {
   )
 }
 
-export default Cities
+export default SearchCity

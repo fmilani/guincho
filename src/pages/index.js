@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-// import Image from "../components/image"
-import Cities from "../components/cities"
+import SearchCity from "../components/search-city"
+import DistanceAndTime from "../components/distance-and-time.js"
 import PriceDetails from "../components/price-details"
+import Hint from "../components/hint"
 import SEO from "../components/seo"
-import formatMoney from "../functions/format-money"
-
-function Value({ children }) {
-  return (
-    <span style={{ fontSize: "1.75rem", display: "inline-block", margin: 10 }}>
-      <b>{children}</b>
-    </span>
-  )
-}
-
-function DisplayFare({ fare }) {
-  return (
-    <span style={{ fontSize: "2.5rem", display: "inline-block", margin: 10 }}>
-      <b>{formatMoney(fare)}</b>
-    </span>
-  )
-}
 
 const IndexPage = () => {
   const [destination, setDestination] = useState("")
@@ -42,50 +25,33 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1></h1>
       <div style={{ width: `100%`, marginBottom: `1.45rem` }}>
-        <Cities onChange={city => setDestination(city)} />
+        <SearchCity
+          onChange={city => setDestination(city)}
+          onClear={() => setRoute(null)}
+        />
         {route ? (
-          <>
-            <div
-              style={{
-                marginTop: 30,
-                fontSize: "1.1rem",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                Distância:
-                <br />
-                <Value>{route.distance}</Value>
-              </div>
-              <div>
-                Tempo total:
-                <br />
-                <Value>{route.duration}</Value>
-              </div>
+          <div style={{ marginTop: 40 }}>
+            <DistanceAndTime distance={route.distance} time={route.duration} />
+            <div style={{ fontStyle: "italic", marginTop: 10 }}>
+              <sup>*</sup>Considerando a ida e a volta.
             </div>
             <div
               style={{
+                marginTop: 20,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
-              <PriceDetails
-                priceDetails={[
-                  { label: "Km rodado", price: route.fare },
-                  { label: "Pedágios", price: route.fare },
-                ]}
-              />
-              <div style={{ fontSize: "2rem" }}>Total:</div>
-              <div style={{ marginTop: 10 }}>
-                <DisplayFare fare={route.fare} />
-              </div>
+              <PriceDetails price={route.price} />
             </div>
-          </>
-        ) : null}
+          </div>
+        ) : (
+          <div style={{ marginTop: 20 }}>
+            <Hint />
+          </div>
+        )}
       </div>
     </Layout>
   )
