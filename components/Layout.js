@@ -20,7 +20,7 @@ export default function Layout({
   >
     <div
       style={{
-        padding: `1.45rem`,
+        padding: `1rem`,
       }}
     >
       <h1 style={{ margin: 0 }}>
@@ -38,8 +38,8 @@ export default function Layout({
     </div>
 
       <footer className={styles.footer}>
-        Entre em contato{' '}
-          <Facebook />
+        <span style={{marginBottom: 8}}>Entre em contato:</span>
+        <Facebook />
       </footer>
     </div>
   )
