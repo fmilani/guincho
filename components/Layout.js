@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import Facebook from './Facebook'
+import Whatsapp from './Whatsapp'
 import styles from '../styles/Home.module.css'
 
 export default function Layout({
@@ -39,7 +40,10 @@ export default function Layout({
 
       <footer className={styles.footer}>
         <span style={{marginBottom: 8}}>Entre em contato:</span>
-        <Facebook />
+        <div style={{display:"flex"}}>
+          <Facebook />
+          <Whatsapp />
+        </div>
       </footer>
     </div>
   )
