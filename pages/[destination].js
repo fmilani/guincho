@@ -1,7 +1,6 @@
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Header from '../components/Header'
+import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
 
 function formatTime(time) {
@@ -42,15 +41,7 @@ if (router.isFallback) {
   }
 
   return (
-    <>
-      <Header />
-    <div className={styles.container}>
-      <Head>
-        <title>{destination} - Pelego Auto Guincho</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
+    <Layout title={`${destination} - Pelego Auto Guincho`}>
         <h1 style={{marginBottom: 0}}>{destination.split(" - ")[0]}</h1>
         <h3 style={{marginTop: 8}}>{destination.split(" - ")[1]}</h3>
         <Link href="/">
@@ -124,9 +115,7 @@ if (router.isFallback) {
         <Link href="/">
           <a style={{textDecoration: 'underline'}}>Voltar</a>
         </Link>
-      </main>
-    </div>
-    </>
+    </Layout>
   )
 }
 
