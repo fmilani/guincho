@@ -7,11 +7,13 @@ import styles from '../styles/Home.module.css'
 export default function Layout({
   children,
   title = 'Pelego Auto Guincho',
+  description = 'Calcule o valor do seu frete',
 }) {
   return (
     <div>
       <Head>
         <title>{title}</title>
+        <meta name="description" content={description} />
       </Head>
     <header
     style={{

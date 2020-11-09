@@ -56,7 +56,10 @@ export default function Destination({ route }) {
   }
 
   return (
-    <Layout title={`${destination} - Pelego Auto Guincho`}>
+    <Layout
+      title={`${destination} | Pelego Auto Guincho`}
+      description={`Valor do frete para ${destination}`}
+    >
         <h1 style={{marginBottom: 0}}>{destination.split(" - ")[0]}</h1>
         <h3 style={{marginTop: 8}}>{destination.split(" - ")[1]}</h3>
         <Link href="/">
