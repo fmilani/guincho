@@ -36,6 +36,20 @@ export default function Destination({ route }) {
     </li>
   )
 }
+  function onShareClick() {
+    if (navigator.share) {
+    navigator.share({
+      title: 'This is the title',
+      url: document.location.href,
+    }).then(() => {
+      console.log('Thanks for sharing!');
+    })
+    .catch(console.error);
+  } else {
+    alert('fallback')
+    // fallback
+  }
+  }
 if (router.isFallback) {
     return <div>Loading...</div>
   }
@@ -77,6 +91,7 @@ if (router.isFallback) {
         }}>
           <sup>*</sup>Considerando a ida e a volta.
         </div>
+      <button onClick={onShareClick}>Compartilhar</button>
         <div
           style={{
             marginTop: 32,
