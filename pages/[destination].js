@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
+import Share from '../components/Share'
 
 function formatTime(time) {
   const hours = Math.floor(time / 3600).toString()
@@ -38,19 +39,19 @@ export default function Destination({ route }) {
 }
   function onShareClick() {
     if (navigator.share) {
-    navigator.share({
-      title: 'This is the title',
-      url: document.location.href,
-    }).then(() => {
-      console.log('Thanks for sharing!');
-    })
-    .catch(console.error);
-  } else {
-    alert('fallback')
-    // fallback
+      navigator.share({
+        title: document.title,
+        url: document.location.href,
+      }).then(() => {
+        // success
+      })
+      .catch(console.error);
+    } else {
+      // fallback
+    }
   }
-  }
-if (router.isFallback) {
+
+  if (router.isFallback) {
     return <div>Loading...</div>
   }
 
@@ -91,7 +92,6 @@ if (router.isFallback) {
         }}>
           <sup>*</sup>Considerando a ida e a volta.
         </div>
-      <button onClick={onShareClick}>Compartilhar</button>
         <div
           style={{
             marginTop: 32,
@@ -127,8 +127,12 @@ if (router.isFallback) {
       <hr />
     </ul>
         </div>
-        <Link href="/">
-          <a style={{textDecoration: 'underline'}}>Voltar</a>
+      <button onClick={onShareClick} >
+        Compartilhar
+        <Share />
+      </button>
+      <Link href="/">
+          <a style={{marginTop: 16, textDecoration: 'underline'}}>Voltar</a>
         </Link>
     </Layout>
   )
