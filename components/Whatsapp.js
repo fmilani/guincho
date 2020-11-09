@@ -1,5 +1,4 @@
 export default function Whatsapp() {
-  console.log(process.env)
   return (
     <a
       href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
