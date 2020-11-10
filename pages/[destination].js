@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
 import Share from '../components/Share'
+import Route from '../components/Route'
 
 function formatTime(time) {
   const hours = Math.floor(time / 3600).toString()
@@ -62,9 +63,7 @@ export default function Destination({ route }) {
     >
         <h1 style={{marginBottom: 0}}>{destination.split(" - ")[0]}</h1>
         <h3 style={{marginTop: 8}}>{destination.split(" - ")[1]}</h3>
-        <Link href="/">
-          <a style={{textDecoration: 'underline'}}>Mudar cidade</a>
-        </Link>
+        <Route link={route.link}/>
         <div
       style={{
         width: "100%",
@@ -135,8 +134,8 @@ export default function Destination({ route }) {
         <Share />
       </button>
       <Link href="/">
-          <a style={{marginTop: 16, textDecoration: 'underline'}}>Voltar</a>
-        </Link>
+        <a style={{marginTop: 16, textDecoration: 'underline'}}>Voltar</a>
+      </Link>
     </Layout>
   )
 }
