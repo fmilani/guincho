@@ -12,7 +12,7 @@ function formatTime(time) {
   const mm = minutes.length < 2 ? `0${minutes}` : minutes
   return `${hh}h${mm}m`
 }
-export default function Destination({ route }) {
+export default function Destination({ data }) {
   const router = useRouter()
   const { destination } = router.query
 
@@ -56,6 +56,17 @@ export default function Destination({ route }) {
     return <div>Loading...</div>
   }
 
+  if (data.error) {
+    return (
+      <>
+        <h3>Ocorreu um erro ao calcular o frete.</h3>
+        <h4>Já estamos resolvendo</h4>
+        <h5>Tente novamente em alguns minutos</h5>
+      </>
+    )
+  }
+
+  const { route } = data
   return (
     <Layout
       title={`${destination} | Pelego Auto Guincho`}
@@ -148,6 +159,6 @@ export async function getStaticProps({ params }) {
   const response = await fetch(
         new URL(`https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`)
       )
-      const route = await response.json()
-  return { props: { route } }
+      const data = await response.json()
+  return { props: { data } }
 }
