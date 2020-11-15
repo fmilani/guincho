@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import Downshift from "downshift"
 
 const API_KEY = "i-Pi7nD9cZkjCXAhIBWdtW92CkhEBGnUAs_HxL_5rng"
 const ROOT_URL = "https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json"
 
-function Search({ onChange, onClear }) {
+function Search({ onChange }) {
+  const DEBOUNCE_TIME = 300
   const [inputValue, setInputValue] = useState("")
   const [query, setQuery] = useState("")
   const [results, setResults] = useState([])
@@ -31,7 +32,7 @@ function Search({ onChange, onClear }) {
 
     const cancelRequest = setTimeout(() => {
       fetchData()
-    }, 500)
+    }, DEBOUNCE_TIME)
     return () => clearTimeout(cancelRequest)
   }, [query])
 
@@ -49,19 +50,12 @@ function Search({ onChange, onClear }) {
       {({
         getInputProps,
         getItemProps,
-        getLabelProps,
         getMenuProps,
         isOpen,
         inputValue,
         highlightedIndex,
-        selectedItem,
         getRootProps,
       }) => {
-        function onChangeCity() {
-          setInputValue("")
-          cityInput.current.focus()
-          onClear()
-        }
         return (
           <div
             style={{
@@ -124,28 +118,6 @@ function Search({ onChange, onClear }) {
                   ))
                 : null}
             </div>
-            {isOpen || !inputValue ? null : (
-              <span
-                tabIndex="0"
-                role="button"
-                style={{
-                  fontSize: "1.2rem",
-                  textDecoration: "underline",
-                  display: "inline-block",
-                  padding: "10px 0",
-                }}
-                onClick={() => {
-                  onChangeCity()
-                }}
-                onKeyDown={event => {
-                  if (event.key === " " || event.key === "Enter") {
-                    onChangeCity()
-                  }
-                }}
-              >
-                Mudar cidade
-              </span>
-            )}
           </div>
         )
       }}
