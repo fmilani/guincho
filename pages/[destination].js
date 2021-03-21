@@ -156,9 +156,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  if (params.destination.includes(".php")) {
+    return {props: { data: {error: true}}}
+  }
   const response = await fetch(
-        new URL(`https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`)
-      )
-      const data = await response.json()
+    new URL(`https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`)
+  )
+  const data = await response.json()
   return { props: { data }, revalidate: 1 }
 }
