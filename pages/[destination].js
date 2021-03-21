@@ -163,5 +163,5 @@ export async function getStaticProps({ params }) {
     new URL(`https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`)
   )
   const data = await response.json()
-  return { props: { data }, revalidate: 1 }
+  return { props: { data } }
 }
