@@ -42,7 +42,7 @@ function Search({ onChange }) {
       onChange={selection => {
         cityInput.current.blur()
         setInputValue(`${selection.city} - ${selection.state}`)
-        onChange(`${selection.city} - ${selection.state}`)
+        onChange(`${selection.city}-${selection.state}`)
       }}
       itemToString={item => (item ? `${item.city} - ${item.state}` : "")}
       defaultHighlightedIndex={0}
