@@ -85,6 +85,7 @@ function Search({ onChange }) {
               />
             </div>
             <div
+              aria-label="Lista de cidades"
               {...getMenuProps({
                 style: isOpen
                   ? {
