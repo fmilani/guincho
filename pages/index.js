@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Layout>
       <Search onChange={city => router.push(`/${city}`)}/>
-      <p>Digite no campo acima a cidade pra onde você precisa do guincho</p>
+      <p>Digite no campo acima a cidade pra onde você precisa do guincho.</p>
     </Layout>
   )
 }
