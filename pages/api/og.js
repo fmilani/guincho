@@ -15,7 +15,7 @@ export default async function (req) {
     (
       <div
         style={{
-          fontSize: 128,
+          fontSize: 64,
           background: "white",
           width: "100%",
           height: "100%",
@@ -27,17 +27,17 @@ export default async function (req) {
         }}
       >
         <div style={{ display: "flex" }}>
-          <span style={{ fontSize: 80 }}>Guincho para {city}</span>
+          <span style={{ fontSize: 40 }}>Guincho para {city}</span>
         </div>
         <span>
           {`R$ ${data.route.price.total.toFixed(2).replace(".", ",")}`}
         </span>
-        <span style={{ fontSize: 56 }}>Pelego Auto Guincho</span>
+        <span style={{ fontSize: 28 }}>Pelego Auto Guincho</span>
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: 500,
+      height: 250,
     }
   )
 }
