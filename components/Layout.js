@@ -18,7 +18,7 @@ export default function Layout({
         {destination && (
           <meta
             property="og:image"
-            content={`https://www.pelegoguincho.com.br/api/og?destination=${destination}`}
+            content={`https://pelegoguincho.com.br/api/og?destination=${destination}`}
           />
         )}
       </Head>
