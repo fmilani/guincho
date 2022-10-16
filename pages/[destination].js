@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import styles from '../styles/Home.module.css'
-import Share from '../components/Share'
-import Route from '../components/Route'
+import { useRouter } from "next/router"
+import Link from "next/link"
+import Layout from "../components/Layout"
+import styles from "../styles/Home.module.css"
+import Share from "../components/Share"
+import Route from "../components/Route"
 
 function formatTime(time) {
   const hours = Math.floor(time / 3600).toString()
@@ -25,28 +25,30 @@ export default function Destination({ data }) {
   )
 
   function PriceDetailItem({ label, price }) {
-  return (
-    <li
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        textDecoration: price > 0 ? "none" : "line-through",
-      }}
-    >
-      <span>{label}:</span>
-      <span>{`R$ ${price.toFixed(2).replace(".", ",")}`}</span>
-    </li>
-  )
-}
+    return (
+      <li
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          textDecoration: price > 0 ? "none" : "line-through",
+        }}
+      >
+        <span>{label}:</span>
+        <span>{`R$ ${price.toFixed(2).replace(".", ",")}`}</span>
+      </li>
+    )
+  }
   function onShareClick() {
     if (navigator.share) {
-      navigator.share({
-        title: document.title,
-        url: document.location.href,
-      }).then(() => {
-        // success
-      })
-      .catch(console.error);
+      navigator
+        .share({
+          title: document.title,
+          url: document.location.href,
+        })
+        .then(() => {
+          // success
+        })
+        .catch(console.error)
     } else {
       // fallback
     }
@@ -70,82 +72,87 @@ export default function Destination({ data }) {
   return (
     <Layout
       title={`${destination} | Pelego Auto Guincho`}
+      destination={destination}
       description={`Valor do frete para ${destination}`}
     >
-        <h1 style={{marginBottom: 0}}>{destination.split("-")[0]}</h1>
-        <h3 style={{marginTop: 8}}>{destination.split("-")[1]}</h3>
-        <Route link={route.link}/>
-        <div
-      style={{
-        width: "100%",
-        fontSize: "1.1rem",
-        display: "flex",
-        justifyContent: "space-between",
-        marginTop: 32,
-      }}
-    >
-      <div>
-        Distância<sup>*</sup>:
-        <br />
-        <Value>{`${route.distance} Km`}</Value>
+      <h1 style={{ marginBottom: 0 }}>{destination.split("-")[0]}</h1>
+      <h3 style={{ marginTop: 8 }}>{destination.split("-")[1]}</h3>
+      <Route link={route.link} />
+      <div
+        style={{
+          width: "100%",
+          fontSize: "1.1rem",
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: 32,
+        }}
+      >
+        <div>
+          Distância<sup>*</sup>:
+          <br />
+          <Value>{`${route.distance} Km`}</Value>
+        </div>
+        <div>
+          Tempo<sup>*</sup>:
+          <br />
+          <span>
+            <Value>{formatTime(route.duration)}</Value>
+          </span>
+        </div>
       </div>
-      <div>
-        Tempo<sup>*</sup>:
-        <br />
-        <span>
-          <Value>{formatTime(route.duration)}</Value>
-        </span>
-      </div>
-    </div>
-        <div style={{
+      <div
+        style={{
           fontStyle: "italic",
           marginTop: 10,
           width: "100%",
-          textAlign: "right"
-        }}>
-          <sup>*</sup>Considerando a ida e a volta.
-        </div>
-        <div
-          style={{
-            marginTop: 32,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <ul
-      style={{
-        width: "100%",
-        marginTop: 10,
-        marginLeft: 0,
-        fontSize: "1.1rem",
-      }}
-    >
-      <div className={styles.separator}>Preço</div>
-      <PriceDetailItem label="Saída" price={route.price.min} />
-      <PriceDetailItem label="Km rodado" price={route.price.km} />
-      <PriceDetailItem label="Pedágios" price={route.price.toll} />
-      <hr />
-      <li
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          textAlign: "right",
         }}
       >
-        <b style={{ fontSize: "1.5rem" }}>Total:</b>
-        <b style={{ fontSize: "2rem" }}>{`R$ ${route.price.total.toFixed(2).replace(".", ",")}`}</b>
-      </li>
-      <hr />
-    </ul>
-        </div>
-      <button onClick={onShareClick} >
+        <sup>*</sup>Considerando a ida e a volta.
+      </div>
+      <div
+        style={{
+          marginTop: 32,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <ul
+          style={{
+            width: "100%",
+            marginTop: 10,
+            marginLeft: 0,
+            fontSize: "1.1rem",
+          }}
+        >
+          <div className={styles.separator}>Preço</div>
+          <PriceDetailItem label="Saída" price={route.price.min} />
+          <PriceDetailItem label="Km rodado" price={route.price.km} />
+          <PriceDetailItem label="Pedágios" price={route.price.toll} />
+          <hr />
+          <li
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <b style={{ fontSize: "1.5rem" }}>Total:</b>
+            <b style={{ fontSize: "2rem" }}>{`R$ ${route.price.total
+              .toFixed(2)
+              .replace(".", ",")}`}</b>
+          </li>
+          <hr />
+        </ul>
+      </div>
+      <button onClick={onShareClick}>
         Compartilhar
         <Share />
       </button>
       <Link href="/">
-        <a style={{marginTop: 16, textDecoration: 'underline'}}>Voltar</a>
+        <a style={{ marginTop: 16, textDecoration: "underline" }}>Voltar</a>
       </Link>
     </Layout>
   )
@@ -157,10 +164,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   if (params.destination.includes(".php")) {
-    return {props: { data: {error: true}}}
+    return { props: { data: { error: true } } }
   }
   const response = await fetch(
-    new URL(`https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`)
+    new URL(
+      `https://fmilani-tow.builtwithdark.com/?destination=${params.destination}`
+    )
   )
   const data = await response.json()
   return { props: { data } }
