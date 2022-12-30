@@ -18,7 +18,7 @@ export default function DestinationHead({ params: { destination } }: any) {
       <meta property="og:image:type" content="image/png" />
       <meta property="og:type" content="website" />
       <meta property="og:locale" content="pt_BR" />
-      <meta property="og:site_name" content="pelegoguincho.com.br"></meta>
+      <meta property="og:site_name" content="pelegoguincho.com.br" />
     </>
   );
 }
