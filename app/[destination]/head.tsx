@@ -12,10 +12,8 @@ export default function DestinationHead({ params: { destination } }: any) {
       <meta
         property="og:image"
         content={`http${
-          process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ? "" : "s"
-        }://${
-          process.env.NEXT_PUBLIC_VERCEL_URL
-        }/api/og?destination=${destination}`}
+          process.env.VERCEL_ENV === "development" ? "" : "s"
+        }://${process.env.VERCEL_URL}/api/og?destination=${destination}`}
       />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:type" content="website" />
