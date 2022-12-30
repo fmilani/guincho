@@ -5,15 +5,20 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-function getCitiesFilter(inputValue) {
-  return function citiesFilter(book) {
+interface Destination {
+  city: string;
+  state: string;
+}
+function getCitiesFilter(inputValue: string) {
+  return function citiesFilter(destination: Destination) {
     return (
-      !inputValue || book.city.toLowerCase().includes(inputValue.toLowerCase())
+      !inputValue ||
+      destination.city.toLowerCase().includes(inputValue.toLowerCase())
     );
   };
 }
 
-export default function CitiesAutocomplete({ cities }) {
+export default function CitiesAutocomplete({ cities }: any) {
   const [items, setItems] = useState([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -43,11 +48,15 @@ export default function CitiesAutocomplete({ cities }) {
       }
     },
     onSelectedItemChange({ selectedItem }) {
-      router.push(`${selectedItem.city}-${selectedItem.state}`);
+      if (!selectedItem) return;
+      const item = selectedItem as Destination;
+      router.push(`${item.city}-${item.state}`);
     },
     items,
     itemToString(item) {
-      return item ? `${item.city}, ${item.state}` : "";
+      if (!item) return "";
+      const i = item as Destination;
+      return `${i.city}, ${i.state}`;
     },
   });
 
@@ -108,9 +117,11 @@ export default function CitiesAutocomplete({ cities }) {
                   transform: `translateY(${virtualItem.start}px)`,
                 }}
               >
-                <span className="text-lg">{items[virtualItem.index].city}</span>
+                <span className="text-lg">
+                  {(items[virtualItem.index] as Destination).city}
+                </span>
                 <span className="text-gray-700">
-                  {items[virtualItem.index].state}
+                  {(items[virtualItem.index] as Destination).state}
                 </span>
               </li>
             ))}

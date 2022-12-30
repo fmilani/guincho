@@ -12,7 +12,7 @@ function formatPrice(price: number) {
   return `R$ ${price.toFixed(2).replace(".", ",")}`;
 }
 
-export default async function Destination({ params: { destination } }) {
+export default async function Destination({ params: { destination } }: any) {
   const { route } = await (
     await fetch(
       new URL(
