@@ -22,9 +22,7 @@ export default function RootLayout({
         <div className="mt-4 p-4 text-lg font-bold flex items-center rounded-xl drop-shadow-sm bg-white">
           <Link href="/">
             <span className="text-2xl">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-slate-600">
-                Pelego Guincho
-              </span>
+              Pelego <span className="text-red-800">Guincho</span>
             </span>
           </Link>
         </div>

@@ -2,7 +2,7 @@
 export default function Share({ destination }: { destination: string }) {
   return (
     <button
-      className="bg-slate-500 text-white shadow-md rounded-lg px-4 py-2 text-sm"
+      className="bg-red-800 text-white shadow-md rounded-lg px-4 py-2 text-sm"
       onClick={async () => {
         if (navigator.share) {
           await navigator.share({
