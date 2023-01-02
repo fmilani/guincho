@@ -14,6 +14,7 @@ export default function Head() {
       <meta property="og:type" content="website" />
       <meta property="og:locale" content="pt_BR" />
       <meta property="og:site_name" content="pelegoguincho.com.br"></meta>
+      <link href="/favicon.png" rel="icon" type="image/png" sizes="16x16" />
     </>
   );
 }
