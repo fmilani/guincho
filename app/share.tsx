@@ -1,5 +1,5 @@
 "use client";
-export default function Share({ destination }) {
+export default function Share({ destination }: { destination: string }) {
   return (
     <button
       className="bg-slate-500 text-white shadow-md rounded-lg px-4 py-2 text-sm"
