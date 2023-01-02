@@ -87,7 +87,7 @@ export default async function Destination({ params: { destination } }: any) {
         >
           VER ROTA
         </a>
-        <Share />
+        <Share destination={destination} />
       </div>
     </div>
   );
