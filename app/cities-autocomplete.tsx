@@ -106,7 +106,7 @@ export default function CitiesAutocomplete({ cities }: any) {
               <li
                 className={`
                 ${highlightedIndex === virtualItem.index && "bg-slate-300 "} 
-                py-2 px-3 shadow-sm flex flex-col
+                py-2 px-3 shadow-sm flex flex-col cursor-pointer
               `}
                 key={virtualItem.key}
                 {...getItemProps({
@@ -124,7 +124,7 @@ export default function CitiesAutocomplete({ cities }: any) {
                 <span className="text-lg">
                   {(items[virtualItem.index] as Destination).city}
                 </span>
-                <span className="text-gray-700">
+                <span className="text-gray-500">
                   {(items[virtualItem.index] as Destination).state}
                 </span>
               </li>
