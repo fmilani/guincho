@@ -3,28 +3,35 @@
 import { useCombobox } from "downshift";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Fuse from "fuse.js";
 
 interface Destination {
   city: string;
   state: string;
 }
-function getCitiesFilter(inputValue: string) {
-  return function citiesFilter(destination: Destination) {
-    return (
-      !inputValue ||
-      destination.city.toLowerCase().includes(inputValue.toLowerCase())
-    );
-  };
-}
 
 export default function CitiesAutocomplete({ cities }: any) {
-  const [items, setItems] = useState([]);
+  const [query, setQuery] = useState("");
+  const [items, setItems] = useState<Destination[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const fuse = useMemo(
+    () => new Fuse(cities, { keys: ["city", "state"] }),
+    [cities]
+  );
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+  useEffect(() => {
+    const filterRequest = setTimeout(() => {
+      const matches = fuse.search(query);
+      setItems(
+        matches.slice(0, 10).map((match) => match.item) as Destination[]
+      );
+    }, 150);
+    return () => clearTimeout(filterRequest);
+  }, [query]);
   const rowVirtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => listRef.current,
@@ -41,11 +48,7 @@ export default function CitiesAutocomplete({ cities }: any) {
   } = useCombobox({
     defaultHighlightedIndex: 0,
     onInputValueChange({ inputValue }) {
-      if (!inputValue) {
-        setItems([]);
-      } else {
-        setItems(cities.filter(getCitiesFilter(inputValue)));
-      }
+      setQuery(inputValue ?? "");
     },
     onSelectedItemChange({ selectedItem }) {
       if (!selectedItem) return;
@@ -75,6 +78,7 @@ export default function CitiesAutocomplete({ cities }: any) {
           <input
             {...getInputProps({ ref: inputRef })}
             id="cities-autocomplete-input"
+            value={query}
             placeholder="Pra qual cidade?"
             className="w-full p-1.5 text-2xl rounded-lg"
             aria-controls="cities-suggestions-list"
