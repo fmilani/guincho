@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Share from "../share";
 
 function formatTime(time: number) {
@@ -10,6 +11,29 @@ function formatTime(time: number) {
 
 function formatPrice(price: number) {
   return `R$ ${price.toFixed(2).replace(".", ",")}`;
+}
+type MetadataProps = {
+  params: { destination: string };
+};
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
+  const { destination } = params;
+  return {
+    title: `${decodeURI(destination)} | Pelego Guincho`,
+    openGraph: {
+      title: "Pelego Auto Guincho",
+      description: `Valor do frete para ${decodeURI(destination)}`,
+      images: [
+        `http${process.env.VERCEL_ENV === "development" ? "" : "s"}://${
+          process.env.VERCEL_URL
+        }/api/og?destination=${destination}`,
+      ],
+      type: "website",
+      locale: "pt_BR",
+      siteName: "pelegoguincho.com.br",
+    },
+  };
 }
 
 export default async function Destination({ params: { destination } }: any) {

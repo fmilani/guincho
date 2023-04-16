@@ -1,5 +1,18 @@
 import CitiesAutocomplete from "./cities-autocomplete";
 
+export const metadata = {
+  title: "Pelego Guincho",
+  description: "Calcule o valor do seu frete",
+  openGraph: {
+    title: "Pelego Auto Guincho",
+    description:
+      "Guinchamos seu veículo, seja ele um automóvel ou motocicleta, com rapidez.",
+    type: "website",
+    locale: "pt_BR",
+    siteName: "pelegoguincho.com.br",
+  },
+};
+
 export default async function Home() {
   const data = await (
     await fetch(
