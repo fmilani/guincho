@@ -6,8 +6,8 @@ export default function Share({ destination }: { destination: string }) {
       onClick={async () => {
         if (navigator.share) {
           await navigator.share({
-            title: `Guincho para ${destination}`,
-            text: `Valor do frete de um guincho para ${destination}`,
+            title: `Guincho para ${decodeURI(destination)}`,
+            text: `Valor do frete de um guincho para ${decodeURI(destination)}`,
             url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/${destination}`,
           });
         } else {
