@@ -37,13 +37,12 @@ export async function generateMetadata({
 }
 
 export default async function Destination({ params: { destination } }: any) {
-  const { route } = await (
-    await fetch(
-      new URL(
-        `https://fmilani-tow.builtwithdark.com/?destination=${destination}`
-      )
+  const response = await fetch(
+    new URL(
+      `https://fmilani-tow.builtwithdark.com/?destination=${destination}`
     )
-  ).json();
+  );
+  const { route } = await response.json();
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -52,7 +51,12 @@ export default async function Destination({ params: { destination } }: any) {
         </h1>
         <h3 className="text-center">{decodeURI(destination).split("-")[1]}</h3>
       </div>
-      <div>
+      {
+        response.status === 503
+        ? <div className="bg-white drop-shadow-sm rounded-lg p-4 flex flex-col gap-2">
+            <p className="font-bold">O serviço está indisponível.</p>
+            <p>Aguarde uns instantes e tente novamente.</p></div>
+        : (<>      <div>
         <div className="bg-white drop-shadow-sm rounded-lg p-4 flex justify-between flex-wrap">
           <div className="flex flex-col gap-0.5">
             <span>
@@ -113,6 +117,8 @@ export default async function Destination({ params: { destination } }: any) {
         </a>
         <Share destination={destination} />
       </div>
+</>)
+      }
     </div>
   );
 }
