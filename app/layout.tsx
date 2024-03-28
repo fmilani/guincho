@@ -1,6 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import Facebook from "./facebook";
 import Whatsapp from "./whatsapp";
 
@@ -13,10 +13,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className={inter.className}>
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <body className="flex flex-col min-h-screen h-full w-full max-w-4xl mx-auto px-4 bg-gray-100 text-gray-700/[.87]">
         <div className="mt-4 p-4 text-lg font-bold flex items-center rounded-xl drop-shadow-sm bg-white">
